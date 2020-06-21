@@ -3,7 +3,7 @@
 
 ## What is this app
 
-- Spring boot application
+- Spring boot application for study
 - Provides Products, Comments CRUD APIs
 - Socail Login Feature (Google, Github)
 
