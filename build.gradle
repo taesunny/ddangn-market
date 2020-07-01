@@ -40,6 +40,8 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
     compile("org.keycloak:keycloak-spring-boot-starter:10.0.2")
     compile("org.keycloak.bom:keycloak-adapter-bom:10.0.2")
+
+    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.3.RELEASE")
 }
 
 test {
