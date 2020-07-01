@@ -24,8 +24,11 @@ public class Products extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String region;
 
-    @Column(nullable = true) // TODO: change it to true
-    private Long userId;
+    @Column(nullable = false)
+    private String userId;
+
+    @Column(nullable = false)
+    private String userEmail;
 
     @Column(nullable = false)
     private int price;
@@ -42,10 +45,11 @@ public class Products extends BaseTimeEntity {
     private String imageFilePath;
 
     @Builder
-    public Products(String title, String content, Long userId, int price, Category category, String region, String imageFilePath) {
+    public Products(String title, String content, String userId, String userEmail, int price, Category category, String region, String imageFilePath) {
         this.title = title;
         this.content = content;
         this.userId = userId;
+        this.userEmail = userEmail;
         this.price = price;
         this.category = category;
         this.region = region;

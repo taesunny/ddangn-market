@@ -29,11 +29,12 @@ public class ProductsSaveRequestDto {
         this.region = region;
     }
 
-    public Products toEntity(Long userId) {
+    public Products toEntity(String userId, String userEmail) {
         return Products.builder()
                 .title(title)
                 .content(content)
                 .userId(userId)
+                .userEmail(userEmail)
                 .price(price)
                 .category(Category.get(category))
                 .region(region)

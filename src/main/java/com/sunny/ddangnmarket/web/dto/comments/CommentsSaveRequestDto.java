@@ -18,7 +18,7 @@ public class CommentsSaveRequestDto {
         this.content = content;
     }
 
-    public Comments toEntity(Long userId, String userEmail, Long productId) {
+    public Comments toEntity(String userId, String userEmail, Long productId) {
         return Comments.builder()
                 .content(content)
                 .userId(userId)

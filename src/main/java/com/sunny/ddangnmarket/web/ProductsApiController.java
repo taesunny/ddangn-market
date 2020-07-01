@@ -1,21 +1,20 @@
 package com.sunny.ddangnmarket.web;
 
 import com.sunny.ddangnmarket.domain.products.Status;
-import com.sunny.ddangnmarket.security.CurrentUser;
-import com.sunny.ddangnmarket.security.UserPrincipal;
 import com.sunny.ddangnmarket.service.S3Service;
 import com.sunny.ddangnmarket.service.comments.CommentsService;
 import com.sunny.ddangnmarket.service.products.ProductsService;
+import com.sunny.ddangnmarket.util.KeyCloakUtils;
 import com.sunny.ddangnmarket.web.dto.products.ProductsListResponseDto;
 import com.sunny.ddangnmarket.web.dto.products.ProductsResponseDto;
 import com.sunny.ddangnmarket.web.dto.products.ProductsSaveRequestDto;
 import com.sunny.ddangnmarket.web.dto.products.ProductsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +29,8 @@ public class ProductsApiController {
     private final CommentsService commentsService;
 
     @PostMapping(value = "/api/v1/products", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    @PreAuthorize("hasRole('USER')")
-    public Long save(@RequestPart("data") ProductsSaveRequestDto requestDto, @RequestPart("image") MultipartFile image, @CurrentUser UserPrincipal userPrincipal) throws IOException {
+//    @PreAuthorize("hasRole('USER')")
+    public Long save(@RequestPart("data") ProductsSaveRequestDto requestDto, @RequestPart("image") MultipartFile image, HttpServletRequest request) throws IOException {
         // TODO: image file null check
 
         System.out.println("requestDto: " + requestDto);
@@ -54,11 +53,11 @@ public class ProductsApiController {
 
         // TODO: set region from user info
 
-        return productsService.save(requestDto, userPrincipal.getId());
+        return productsService.save(requestDto, KeyCloakUtils.getUserId(request), KeyCloakUtils.getUserEmail(request));
     }
 
     @PutMapping("/api/v1/products/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public Long update(@PathVariable Long id, @RequestBody ProductsUpdateRequestDto requestDto, @RequestParam("status") String statusQeuryString) {
 
         System.out.println("product update statusQeuryString: " + statusQeuryString);
@@ -87,7 +86,7 @@ public class ProductsApiController {
     }
 
     @DeleteMapping("/api/v1/products/{id}")
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     public Long delete(@PathVariable Long id) throws IOException {
 
         commentsService.deleteAllByProductId(id);

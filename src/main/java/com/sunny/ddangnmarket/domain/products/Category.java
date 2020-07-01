@@ -11,7 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @RequiredArgsConstructor
 public enum Category {
 
-    SPORTS_N_LEISURE("다지털/가전"),
+    SPORTS_N_LEISURE("스포츠/레저"),
+    DIGITAL_PRODUCTS("다지털/가전"),
     INTERIOR("가구/인테리어"),
     BABY("유아동/유아도서"),
     LIFE_N_FOOD("생활/가공식품"),

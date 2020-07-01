@@ -17,7 +17,7 @@ public class CommentsService {
     private final CommentsRepository commentsRepository;
 
     @Transactional
-    public Long save(CommentsSaveRequestDto requestDto, Long userId, String userEmail, Long productId) {
+    public Long save(CommentsSaveRequestDto requestDto, String userId, String userEmail, Long productId) {
         return commentsRepository.save(requestDto.toEntity(userId, userEmail, productId)).getId();
     }
 

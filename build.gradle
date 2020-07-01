@@ -38,6 +38,8 @@ dependencies {
 //    implementation 'org.springframework.security:spring-security-oauth2-client'
     compile('io.jsonwebtoken:jjwt:0.7.0')
     compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
+    compile("org.keycloak:keycloak-spring-boot-starter:10.0.2")
+    compile("org.keycloak.bom:keycloak-adapter-bom:10.0.2")
 }
 
 test {
