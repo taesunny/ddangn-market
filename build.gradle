@@ -2,10 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'com.bmuschko.docker-java-application' version '6.4.0'
 }
 
 group = 'com.sunny'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.0'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -16,6 +17,14 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+docker {
+    javaApplication {
+        baseImage = 'openjdk:8-alpine'
+        maintainer = 'Taesun Lee "superbsun@gmail.com"'
+        ports = [8080]
+    }
 }
 
 dependencies {
