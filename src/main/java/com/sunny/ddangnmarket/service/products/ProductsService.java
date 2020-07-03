@@ -21,9 +21,9 @@ public class ProductsService {
     private final ProductsRepository productsRepository;
 
     @Transactional
-    public Long save(ProductsSaveRequestDto requestDto, Long userId) {
+    public Long save(ProductsSaveRequestDto requestDto, String userId, String userEmail) {
         // TODO: add category validation
-        return productsRepository.save(requestDto.toEntity(userId)).getId();
+        return productsRepository.save(requestDto.toEntity(userId, userEmail)).getId();
     }
 
     @Transactional

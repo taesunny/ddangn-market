@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class CommentsResponseDto {
     private Long id;
     private String content;
-    private Long userId;
+    private String userId;
     private String userEmail;
     private Long productId;
     private LocalDateTime createdTime;
@@ -20,7 +20,7 @@ public class CommentsResponseDto {
         this.content = entity.getContent();
         this.userId = entity.getUserId();
         this.userEmail = entity.getUserEmail();
-        this.productId = entity.getUserId();
+        this.productId = entity.getProductId();
         this.createdTime = entity.getCreatedDate();
         this.updatedTime = entity.getModifiedDate();
     }

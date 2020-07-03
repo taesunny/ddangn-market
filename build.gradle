@@ -2,10 +2,11 @@ plugins {
     id 'org.springframework.boot' version '2.3.0.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'com.bmuschko.docker-java-application' version '6.4.0'
 }
 
 group = 'com.sunny'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.0'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -16,6 +17,14 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+docker {
+    javaApplication {
+        baseImage = 'openjdk:8-alpine'
+        maintainer = 'Taesun Lee "superbsun@gmail.com"'
+        ports = [8080]
+    }
 }
 
 dependencies {
@@ -38,6 +47,10 @@ dependencies {
 //    implementation 'org.springframework.security:spring-security-oauth2-client'
     compile('io.jsonwebtoken:jjwt:0.7.0')
     compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
+    compile("org.keycloak:keycloak-spring-boot-starter:10.0.2")
+    compile("org.keycloak.bom:keycloak-adapter-bom:10.0.2")
+
+    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.3.RELEASE")
 }
 
 test {

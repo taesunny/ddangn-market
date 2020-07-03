@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class CommentsListResponseDto {
     private Long id;
     private String content;
-    private Long userId;
+    private String userId;
     private String userEmail;
     private Long productId;
     private LocalDateTime createdTime;
@@ -21,7 +21,7 @@ public class CommentsListResponseDto {
         this.content = entity.getContent();
         this.userId = entity.getUserId();
         this.userEmail = entity.getUserEmail();
-        this.productId = entity.getUserId();
+        this.productId = entity.getProductId();
         this.createdTime = entity.getCreatedDate();
         this.updatedTime = entity.getModifiedDate();
     }

@@ -21,14 +21,14 @@ public class Comments extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(nullable = true) // TODO: change it to true
-    private Long userId;
+    @Column(nullable = false)
+    private String userId;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String userEmail;
 
     @Builder
-    public Comments(Long productId, String content, Long userId, String userEmail) {
+    public Comments(Long productId, String content, String userId, String userEmail) {
         this.productId = productId;
         this.content = content;
         this.userId = userId;

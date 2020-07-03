@@ -22,7 +22,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         HttpMethod.DELETE.name(),
                         HttpMethod.PATCH.name(),
                         HttpMethod.OPTIONS.name());
-//        .allowCredentials(true)
-//                .maxAge(MAX_AGE_SECS);
     }
 }
