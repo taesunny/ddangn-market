@@ -1,5 +1,5 @@
 
-# Ddangn-market - Spring boot Application
+# Ddangn-market - Product API Server
 
 <img src="https://miro.medium.com/max/700/1*InTRJNvyco3ZAjYdiKYmzw.jpeg" width="150">
 
