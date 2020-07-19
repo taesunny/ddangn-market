@@ -10,7 +10,9 @@ import com.sunny.ddangnmarket.web.dto.products.ProductsResponseDto;
 import com.sunny.ddangnmarket.web.dto.products.ProductsSaveRequestDto;
 import com.sunny.ddangnmarket.web.dto.products.ProductsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,10 +51,6 @@ public class ProductsApiController {
         System.out.println("s3 upload success, imagePath: " + imagePath);
         requestDto.setImageFilePath(imagePath);
 
-        // TODO: set UserId
-
-        // TODO: set region from user info
-
         return productsService.save(requestDto, KeyCloakUtils.getUserId(request), KeyCloakUtils.getUserEmail(request));
     }
 
@@ -70,14 +68,34 @@ public class ProductsApiController {
             return productsService.updateStatus(id, statusQeuryString);
         }
 
-        return Long.valueOf(0); // temp
+        return id;
     }
 
     @GetMapping("/api/v1/products/{id}")
     public ProductsResponseDto findById(@PathVariable String id) {
         Long idLongValue = Long.valueOf(id);
+        ProductsResponseDto outDto = productsService.findById(idLongValue);
 
-        return productsService.findById(idLongValue);
+        return outDto;
+    }
+
+    @GetMapping("/api/v1/products/{id}/image")
+    public ResponseEntity<ByteArrayResource> getImage(@PathVariable String id) throws IOException {
+        Long idLongValue = Long.valueOf(id);
+        ProductsResponseDto outDto = productsService.findById(idLongValue);
+
+        String imagePath = outDto.getImageFilePath();
+        byte[] data = s3Service.download(imagePath);
+        ByteArrayResource resource = new ByteArrayResource(data);
+
+        String fileName = imagePath.substring(imagePath.lastIndexOf("/") + 1);
+
+        return ResponseEntity
+                .ok()
+                .contentLength(data.length)
+                .header("Content-type", "application/octet-stream")
+                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+                .body(resource);
     }
 
     @GetMapping("/api/v1/products")

@@ -1,9 +1,12 @@
 package com.sunny.ddangnmarket.service;
 
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.util.IOUtils;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -15,7 +18,10 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 @Service
 @NoArgsConstructor
@@ -58,5 +64,14 @@ public class S3Service {
 
         System.out.println("file key to delete : " + fileKey);
         s3Client.deleteObject(bucket, fileKey);
+    }
+
+    public byte[] download(String s3Url) throws IOException {
+        String fileKey = s3Url.substring(s3Url.lastIndexOf("/") + 1);
+
+        System.out.println("file key to download : " + fileKey);
+        S3Object file = s3Client.getObject(bucket, fileKey);
+
+        return IOUtils.toByteArray(file.getObjectContent());
     }
 }
